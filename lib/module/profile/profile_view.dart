@@ -13,9 +13,9 @@ class ProfileView extends StatelessWidget {
             icon: const Icon(Icons.edit),
             tooltip: 'Edit Profile',
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Edit profile')),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(const SnackBar(content: Text('Edit profile')));
             },
           ),
         ],
@@ -29,15 +29,30 @@ class ProfileView extends StatelessWidget {
               CircleAvatar(
                 radius: 48,
                 backgroundColor: Theme.of(context).colorScheme.primary,
-                child: const Text('J', style: TextStyle(fontSize: 48, color: Colors.white)),
+                child: const Text(
+                  'J',
+                  style: TextStyle(fontSize: 48, color: Colors.white),
+                ),
               ),
               const SizedBox(height: 16),
-              Text('John Doe', style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
+              Text(
+                'khaled Ahtesham',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 4),
-              Text('johndoe@example.com', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey)),
+              Text(
+                'khaled_Ahtesham@gmail.com',
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.copyWith(color: Colors.grey),
+              ),
               const SizedBox(height: 24),
               Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 child: Column(
                   children: [
                     ListTile(
@@ -68,12 +83,14 @@ class ProfileView extends StatelessWidget {
                   backgroundColor: Theme.of(context).colorScheme.error,
                   foregroundColor: Colors.white,
                   minimumSize: const Size.fromHeight(48),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Logged out ')),
-                  );
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(const SnackBar(content: Text('Logged out ')));
                 },
               ),
             ],

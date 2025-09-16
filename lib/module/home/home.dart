@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pre_plated/module/custom_order/custom_order_view.dart';
+import 'package:pre_plated/module/custom_set_time/custom_set_time.dart';
+import 'package:pre_plated/module/favourite/favourite_view.dart';
 import 'package:pre_plated/module/profile/profile_view.dart';
+import 'package:pre_plated/module/setting/setting_view.dart';
 import 'package:pre_plated/module/vendor/vendor_view.dart';
 import 'package:pre_plated/module/order/order_view.dart';
 
@@ -35,8 +38,8 @@ class HomePage extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             UserAccountsDrawerHeader(
-              accountName: const Text('John Doe'),
-              accountEmail: const Text('johndoe@example.com'),
+              accountName: const Text('khaled Ahtesham'),
+              accountEmail: const Text('khaled_Ahtesham@gmail.com'),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Theme.of(context).colorScheme.onPrimary,
                 child: const Text('J', style: TextStyle(fontSize: 24)),
@@ -54,10 +57,13 @@ class HomePage extends StatelessWidget {
                 // ScaffoldMessenger.of(context).showSnackBar(
                 //   const SnackBar(content: Text('Profile clicked (placeholder)')),
                 // );
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileView(),));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileView()),
+                );
               },
             ),
-             ListTile(
+            ListTile(
               leading: const Icon(Icons.person_outline),
               title: const Text('Customized food order'),
               subtitle: const Text('anything you want !!'),
@@ -66,19 +72,41 @@ class HomePage extends StatelessWidget {
                 // ScaffoldMessenger.of(context).showSnackBar(
                 //   const SnackBar(content: Text('Profile clicked (placeholder)')),
                 // );
-                Navigator.push(context, MaterialPageRoute(builder: (context) => CustomCurryOrderView(),));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CustomCurryOrderView(),
+                  ),
+                );
               },
             ),
 
+            // ListTile(
+            //   leading: const Icon(Icons.person_outline),
+            //   title: const Text('Set Time and get food'),
+            //   subtitle: const Text('set custom time for ordering food!!'),
+            //   onTap: () {
+            //     // Navigator.of(context).pop();
+            //     // ScaffoldMessenger.of(context).showSnackBar(
+            //     //   const SnackBar(content: Text('Profile clicked (placeholder)')),
+            //     // );
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => CustomCurryOrderView(),
+            //       ),
+            //     );
+            //   },
+            // ),
             ListTile(
               leading: const Icon(Icons.storefront),
               title: const Text('Are you a vendor?'),
               subtitle: const Text('Register or manage your vendor account'),
               onTap: () {
-               Navigator.push(context, MaterialPageRoute(builder: 
-               (context) => VendorView(),
-               ));
-                
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => VendorView()),
+                );
               },
             ),
             const Divider(),
@@ -86,31 +114,19 @@ class HomePage extends StatelessWidget {
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
               onTap: () {
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Settings clicked (placeholder)')),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingsPage()),
                 );
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.help_outline),
-              title: const Text('Help & feedback'),
-              onTap: () {
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Help clicked (placeholder)')),
-                );
-              },
-            ),
+
             const Spacer(),
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
               onTap: () {
                 Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Logged out (placeholder)')),
-                );
               },
             ),
           ],
@@ -119,9 +135,45 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('PrePlated'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart_outlined),
-            onPressed: () {},
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.shopping_cart_outlined),
+                onPressed: () {
+                  // Navigate to order list or cart page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => OrderView()),
+                  );
+                },
+              ),
+              // Badge
+              Positioned(
+                right: 8,
+                top: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.circle,
+                  ),
+                  constraints: const BoxConstraints(
+                    minWidth: 20,
+                    minHeight: 20,
+                  ),
+                  child: const Text(
+                    '4', // number of orders
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -143,7 +195,9 @@ class HomePage extends StatelessWidget {
                   hintText: 'Search dishes, restaurants...',
                   prefixIcon: const Icon(Icons.search),
                   filled: true,
-                  fillColor: Theme.of(context).colorScheme.surfaceVariant,
+                  fillColor: Theme.of(
+                    context,
+                  ).colorScheme.surfaceContainerHighest,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
@@ -177,7 +231,9 @@ class HomePage extends StatelessWidget {
                               child: Icon(
                                 item['icon'] as IconData,
                                 size: 32,
-                                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onPrimaryContainer,
                               ),
                             ),
                           ),
@@ -200,10 +256,7 @@ class HomePage extends StatelessWidget {
                     'Featured near you',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text('See all'),
-                  ),
+                  TextButton(onPressed: () {}, child: const Text('See all')),
                 ],
               ),
 
@@ -214,20 +267,26 @@ class HomePage extends StatelessWidget {
                 child: ListView.separated(
                   // Add bottom padding so the last item is not obscured by
                   // the bottom navigation bar and to avoid small overflow
-                  padding: const EdgeInsets.only(bottom: kBottomNavigationBarHeight + 16),
+                  padding: const EdgeInsets.only(
+                    bottom: kBottomNavigationBarHeight + 16,
+                  ),
                   itemCount: featured.length,
                   separatorBuilder: (_, __) => const SizedBox(height: 12),
                   itemBuilder: (context, index) {
                     final item = featured[index];
                     return Card(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       child: ListTile(
                         contentPadding: const EdgeInsets.all(12),
                         leading: Container(
                           width: 56,
                           height: 56,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.secondaryContainer,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.secondaryContainer,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: const Icon(Icons.fastfood, size: 28),
@@ -237,18 +296,17 @@ class HomePage extends StatelessWidget {
                           children: [
                             Text(item['subtitle'] as String),
                             const SizedBox(width: 8),
-                            const Icon(Icons.star, size: 14, color: Colors.amber),
+                            const Icon(
+                              Icons.star,
+                              size: 14,
+                              color: Colors.amber,
+                            ),
                             const SizedBox(width: 4),
                             Text((item['rating'] as double).toString()),
                           ],
                         ),
                         trailing: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => OrderView()),
-                            );
-                          },
+                          onPressed: () {},
                           child: const Text('Order'),
                         ),
                       ),
@@ -264,12 +322,40 @@ class HomePage extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: 'Favorites'),
-          BottomNavigationBarItem(icon: Icon(Icons.receipt_long), label: 'Orders'),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_border),
+            label: 'Favorites',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt_long),
+            label: 'Orders',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            label: 'Profile',
+          ),
         ],
         currentIndex: 0,
-        onTap: (i) {},
+        onTap: (i) {
+          if (i == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => OrderView()),
+            );
+          }
+          if (i == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => FavoritesPage()),
+            );
+          }
+          if (i == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfileView()),
+            );
+          }
+        },
       ),
     );
   }
